@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2019 Julien Dusser
+# Copyright (C) 2020 Julien Dusser
 # http://github.com/j-d-r/UserCertServer
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
@@ -64,6 +64,7 @@ class Param:
     """Store here globals as BaseHTTPRequestHandler is stateless."""
     pass
 
+
 p = Param()
 
 
@@ -105,6 +106,7 @@ class NetscapeSPKINew(c.NetscapeSPKI):
             raise ValueError('Invalid SPKAC string')
         new._spki = _ffi.gc(spki, _lib.NETSCAPE_SPKI_free)
         return new
+
 
 c.NetscapeSPKI = NetscapeSPKINew
 
