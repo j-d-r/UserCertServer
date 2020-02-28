@@ -258,7 +258,7 @@ def main():
         print('Failed to load CA: {}'.format(err), file=sys.stderr)
         sys.exit(-1)
 
-    p.export_pass = gp.getpass(prompt='P12 export Password: ', stream=None)
+    p.export_pass = gp.getpass(prompt='P12 export Password: ', stream=None).encode()
     if len(p.export_pass) < 10:
         print('Warning P12 export disabled. Give at least 10 characters')
         p.export_pass = None
