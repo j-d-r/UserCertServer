@@ -242,7 +242,32 @@ def run(server_class=http.server.HTTPServer, handler_class=Server, port=8000):
     httpd.serve_forever()
 
 
+def print_ip():
+    try:
+        import netifaces
+
+        PROTO = netifaces.AF_INET   # We want only IPv4, for now at least
+
+        # Get list of network interfaces
+        ifaces = netifaces.interfaces()
+
+        # Get addresses for each interface
+        if_addrs = [(netifaces.ifaddresses(iface), iface) for iface in ifaces]
+
+        # Filter for only IPv4 addresses
+        if_inet_addrs = [(tup[0][PROTO], tup[1]) for tup in if_addrs if PROTO in tup[0]]
+
+        for tup in if_inet_addrs:
+            for s in tup[0]:
+                if 'addr' in s:
+                    print("Listening on %s (%s)" % (s['addr'], tup[1]))
+
+    except ImportError:
+        pass
+
+
 def main():
+    print_ip()
     p.ca_pass = gp.getpass(prompt='CA Key Password: ', stream=None).encode()
     if not p.ca_pass:
         p.ca_pass = None

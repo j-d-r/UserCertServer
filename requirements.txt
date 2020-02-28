@@ -1,3 +1,6 @@
 cryptography
 pyasn1
 pyopenssl
+
+# not mandatory:
+netifaces
